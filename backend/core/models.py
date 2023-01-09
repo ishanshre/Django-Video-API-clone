@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from accounts.models import Profile
 # Create your models here.
@@ -38,3 +39,14 @@ class Content(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    content = models.ForeignKey(Content, on_delete=models.CASCADE, related_name="comments")
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="user_comments")
+    rating = models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)], null=True, blank=True)
+    body = models.TextField(max_length=10000)
+    created = models.DateTimeField(auto_now_add=True)
+    edited = models.DateTimeField(auto_now=True)
+
+
