@@ -126,6 +126,11 @@ class SimpleUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username','email','email_confirmed']
+
+class SimpleUserSerailizer1(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username','email']
         
 
 
@@ -139,6 +144,13 @@ class UserDetailSerailizer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['first_name','last_name','username','email','email_confirmed','is_active','date_joined','last_login']
+
+
+class SimpleProfileSerializer(serializers.ModelSerializer):
+    user = SimpleUserSerailizer1()
+    class Meta:
+        model = Profile
+        fields = ['id','user']
 
 
 class ProfileSeralizer(serializers.ModelSerializer):
