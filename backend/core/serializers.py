@@ -74,3 +74,4 @@ class CommentSerializer(serializers.ModelSerializer):
         profile_id = self.context['profile_id']
 
         return Comment.objects.create(content_id=content_id, profile_id=profile_id, **validated_data)
+

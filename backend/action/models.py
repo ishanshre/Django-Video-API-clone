@@ -41,3 +41,8 @@ class Dislike(models.Model):
         return f"{self.profile.user.username.title()} dislikes {self.content.title}"
 
 
+class View(models.Model):
+    ip = models.CharField(max_length=20, unique=True)
+    is_view = models.BooleanField(default=False)
+    content = models.ForeignKey(Content, on_delete=models.CASCADE, related_name="views")
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)

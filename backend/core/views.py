@@ -3,7 +3,7 @@ from django.db.models import Q
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListAPIView
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from core.permissions import IsAdmnOrReadOnly, IsOwnerOrReadOnly, IsChannelOwnerOrReadOnly
 from core.serializers import (
@@ -39,8 +39,8 @@ class ChannelApiModelViewSet(ModelViewSet):
     edit_methods = ['POST','PUT','PATCH','DELETE']
     def get_permissions(self):
         if self.request.method in self.edit_methods:
-            return [IsAuthenticatedOrReadOnly(), IsOwnerOrReadOnly()]
-        return []
+            return [IsAuthenticated(), IsOwnerOrReadOnly()]
+        return [IsAuthenticated()]
 
     def get_queryset(self):
         # if self.request.method in self.edit_methods:
