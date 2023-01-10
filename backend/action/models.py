@@ -28,7 +28,7 @@ class Like(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.profile.username.title()} likes {self.content.title}"
+        return f"{self.profile.user.username.title()} likes {self.content.title}"
 
 
 class Dislike(models.Model):
@@ -38,6 +38,6 @@ class Dislike(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.profile.username.title()} dislikes {self.content.title}"
+        return f"{self.profile.user.username.title()} dislikes {self.content.title}"
 
 

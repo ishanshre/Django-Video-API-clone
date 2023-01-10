@@ -46,9 +46,12 @@ router.register('categorys', views.CategoryApiModelViewSet, basename='categorys'
 router.register('channels', views.ChannelApiModelViewSet, basename='channels')
 channel_router = routers.NestedDefaultRouter(router, 'channels',lookup='channel')
 channel_router.register("contents", views.ContentApiModelViewSet, basename='channel-contents')
+channel_router.register("subscribers", action_views.SubscriptionModelViewSet, basename="subscribers")
 
 content_router = routers.NestedDefaultRouter(channel_router, 'contents', lookup='content')
 content_router.register("comments", views.CommentApiModelViewSet, basename='content-comments')
+content_router.register("likes", action_views.LikeModelViewSet, basename='content-likes')
+content_router.register("dislikes", action_views.DislikeModelViewSet, basename='content-dislikes')
 
 urlpatterns += router.urls + channel_router.urls + content_router.urls
 
