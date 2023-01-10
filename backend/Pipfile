@@ -13,6 +13,7 @@ pillow = "*"
 psycopg2 = "*"
 djangorestframework-simplejwt = "*"
 drf-yasg = "*"
+drf-nested-routers = "*"
 
 [dev-packages]
 

@@ -24,3 +24,14 @@ class IsOwnerOrReadOnly(BasePermission):
         if request.method in SAFE_METHODS:
             return True
         return obj.profile == request.user.profile
+
+
+
+class IsChannelOwnerOrReadOnly(BasePermission):
+    """
+    Custom permission to check if user's channel is the channel of the object
+    """
+    def has_object_permission(self, request, view, obj):
+        if request.method in SAFE_METHODS:
+            return True
+        return obj.channel.profile == request.user.profile

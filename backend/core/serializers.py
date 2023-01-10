@@ -7,6 +7,7 @@ from rest_framework import serializers
 from core.models import (
     Category,
     Channel,
+    Content,
     Comment,
 )
 
@@ -44,6 +45,18 @@ class ChannelEditSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'channel_type', 'thumbnail', 'banner', 'about']
 
 
+
+class ContentSerializer(serializers.ModelSerializer):
+    channel = ChannelSerailizer(read_only=True)
+    class Meta:
+        model = Content
+        fields = "__all__"
+        read_only_fields = ['channel']
+
+    def create(self, validated_data):
+        channel_id = self.context['channel_id']
+        return Content.objects.create(channel_id=channel_id, **validated_data)
+
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
@@ -51,4 +64,7 @@ class CommentSerializer(serializers.ModelSerializer):
         read_only_fields = ["created", "edited"]
     
     def create(self, validated_data):
-        pass
+        content_id = self.context['content_id']
+        profile_id = self.context['profile_id']
+
+        return Comment.objects.create(content_id=content_id, profile_id=profile_id, **validated_data)
