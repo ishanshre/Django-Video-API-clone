@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
+    'corsheaders',
 
     # local apps
     'accounts.apps.AccountsConfig',
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -79,7 +81,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'youtubeClone.wsgi.application'
 
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5721",
+]
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
